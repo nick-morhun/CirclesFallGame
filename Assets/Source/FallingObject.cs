@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-// TODO: stop falling
 [DisallowMultipleComponent]
 public class FallingObject : MonoBehaviour
 {
+    private static long objectsCreated = 0L;
 
     private bool isInitialized = false;
 
@@ -36,16 +36,27 @@ public class FallingObject : MonoBehaviour
         }
     }
 
+    public int LevelCreated { get; private set; }
+
     /// <summary>
     /// Initializes this object.
     /// </summary>
-    public void Initialize(float scale)
+    public void Initialize(float scale, int levelCreated)
     {
+        if (isInitialized)
+        {
+            return;
+        }
+
         if (scale <= 0)
         {
             Debug.LogError("FallingObject.Score: scale <= 0");
             scale = 1f;
         }
+
+        LevelCreated = levelCreated;
+        gameObject.name = "Object " + objectsCreated + " Level " + levelCreated;
+        //TODO: use level in formulas
 
         TargetConfiguration config = Configuration.Instance.Target;
         Debug.Assert(config.MaxScale > scale);
@@ -57,7 +68,8 @@ public class FallingObject : MonoBehaviour
         Debug.Assert(speed >= config.BaseSpeed);
         Debug.Assert(score >= config.BaseScore);
         isInitialized = true;
-        Debug.Log("FallingObject.Initialize(): speed = " + speed + " score = " + score);
+        objectsCreated++;
+        //Debug.Log("FallingObject.Initialize(): speed = " + speed + " score = " + score);
     }
 
     private void FixedUpdate()

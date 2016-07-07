@@ -13,6 +13,9 @@ public class Configuration : MonoBehaviour
     [SerializeField]
     private int pointsToNextLevel;
 
+    [SerializeField]
+    private int ojectsCacheSize;
+
     /// <summary>
     /// A singleton instance.
     /// </summary>
@@ -22,6 +25,11 @@ public class Configuration : MonoBehaviour
     public string ActionAxisName { get { return actionAxisName; } }
 
     public int PointsToNextLevel { get { return pointsToNextLevel; } }
+
+    /// <summary>
+    /// A number of objects that should stay in cache.
+    /// </summary>
+    public int ObjectsCacheBufferSize { get { return ojectsCacheSize; } }
 
     public TargetConfiguration Target { get { return target; } }
 

@@ -11,9 +11,11 @@ public class TargetConfiguration : MonoBehaviour
     private float baseScore;
 
     [SerializeField]
+    [Range(.1f, 100f)]
     private float baseSpawnFrequency;
 
     [SerializeField]
+    [Range(.1f, 10f)]
     private float baseSpeed;
 
     [SerializeField]
@@ -23,9 +25,11 @@ public class TargetConfiguration : MonoBehaviour
     private float speedByLevelMultiplier;
 
     [SerializeField]
+    [Range(.1f, 100f)]
     private float minScale;
 
     [SerializeField]
+    [Range(.1f, 100f)]
     private float maxScale;
 
 
@@ -50,9 +54,9 @@ public class TargetConfiguration : MonoBehaviour
 
     public float SpeedByLevelMultiplier { get { return speedByLevelMultiplier; } }
 
-    public float MinScale { get { return minScale; } }
+    public float MinScale { get { return Mathf.Min(maxScale, minScale); } }
 
-    public float MaxScale { get { return maxScale; } }
+    public float MaxScale { get { return Mathf.Max( maxScale, minScale); } }
 
 
 }

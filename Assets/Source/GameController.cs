@@ -41,11 +41,6 @@ public class GameController : MonoBehaviour
         inputManager.Touch += OnTouch;
 
         StartCoroutine(Clock());
-
-        // TODO: create random circles
-        var circleGO = GameObject.FindWithTag(Configuration.Instance.Target.Tag);
-        var circle = circleGO.GetComponent<FallingObject>();
-        circle.Initialize(circle.transform.localScale.x);
     }
 
     public void OnTouch(TouchEventArgs args)
@@ -56,21 +51,16 @@ public class GameController : MonoBehaviour
         {
             var obj = hit.collider.GetComponent<FallingObject>();
 
-            if (!obj)
-            {
-
-                return;
-            }
-
             game.Score += obj.Score;
 
             int requiredScore = Configuration.Instance.PointsToNextLevel * (game.Level + 1);
             if (game.Score >= requiredScore)
             {
-                
+                game.Level++;
+                circlesManager.NextLevel(game.Level);
             }
-
-            Object.Destroy(hit.collider.gameObject);
+            Debug.Log("An object destroyed");
+            circlesManager.RecycleObject(obj);
             gameGui.UpdateUI(game);
         }
     }
