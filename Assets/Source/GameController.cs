@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
 
 [DisallowMultipleComponent]
 public class GameController : MonoBehaviour
@@ -11,6 +11,9 @@ public class GameController : MonoBehaviour
 
     [SerializeField]
     private InputManager inputManager;
+
+    [SerializeField]
+    private CirclesManager circlesManager;
 
     // Use this for initialization
     private void Start()
@@ -27,9 +30,17 @@ public class GameController : MonoBehaviour
             return;
         }
 
+        if (!circlesManager)
+        {
+            Debug.LogError("GameController.Start(): circlesManager is null");
+            return;
+        }
+
         game = NewGame();
         gameGui.UpdateUI(game);
         inputManager.Touch += OnTouch;
+
+        StartCoroutine(Clock());
 
         // TODO: create random circles
         var circleGO = GameObject.FindWithTag(Configuration.Instance.Target.Tag);
@@ -61,6 +72,16 @@ public class GameController : MonoBehaviour
 
             Object.Destroy(hit.collider.gameObject);
             gameGui.UpdateUI(game);
+        }
+    }
+
+    private IEnumerator Clock()
+    {
+        while (true)
+        {
+            gameGui.UpdateUI(game);
+            yield return new WaitForSeconds(1);
+            game.TotalSeconds++;
         }
     }
 

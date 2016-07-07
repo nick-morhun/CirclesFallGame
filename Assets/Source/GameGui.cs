@@ -11,6 +11,9 @@ public class GameGui : MonoBehaviour
     [SerializeField]
     private Text gameLevel;
 
+    [SerializeField]
+    private Text time;
+
     public void UpdateUI(Game game)
     {
         if (game == null)
@@ -23,6 +26,9 @@ public class GameGui : MonoBehaviour
             (game.Level + 1).ToString(CultureInfo.InvariantCulture));
         gameScore.text = string.Format(Strings.ScoreText,
             game.Score.ToString(CultureInfo.InvariantCulture));
+        time.text = string.Format(Strings.TimeText,
+            (int)(game.TotalSeconds / 3600), (int)(game.TotalSeconds % 3600) / 60,
+            (int)(game.TotalSeconds % 60));
     }
 
     private void Start()
@@ -36,6 +42,12 @@ public class GameGui : MonoBehaviour
         if (!gameLevel)
         {
             Debug.LogError("GameGui.Start(): gameLevel is null");
+            return;
+        }
+
+        if (!time)
+        {
+            Debug.LogError("GameGui.Start(): time is null");
             return;
         }
     }
