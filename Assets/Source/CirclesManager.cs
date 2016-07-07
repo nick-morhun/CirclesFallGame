@@ -38,7 +38,7 @@ public class CirclesManager : MonoBehaviour
     {
         fallingObject.enabled = false;
         fallingObject.transform.position = spawningStart.position;
-        pull.Put(fallingObject);
+        CheckAndRecycle(fallingObject);
     }
 
     // Use this for initialization
@@ -93,7 +93,20 @@ public class CirclesManager : MonoBehaviour
 
     private void OnObjectStopped(ObjectStoppedEventArgs args)
     {
-        Debug.Log("An object stopped");
-        pull.Put(args.FallingObject);
+        CheckAndRecycle(args.FallingObject);
+    }
+
+    private void CheckAndRecycle(FallingObject fallingObject)
+    {
+        if (fallingObject.LevelCreated == cachedLevel)
+        {
+            Debug.Log("An object put to pull");
+            pull.Put(fallingObject);
+        }
+        else
+        {
+            Debug.LogWarning("An object destroyed");
+            Object.Destroy(fallingObject.gameObject);
+        }
     }
 }
