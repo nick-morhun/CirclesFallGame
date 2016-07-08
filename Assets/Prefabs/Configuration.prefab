@@ -59,7 +59,7 @@ MonoBehaviour:
   tagName: Target
   baseScore: 10
   baseSpawnFrequency: 0.5
-  baseSpeed: 0.5
+  baseSpeed: 0.7
   spawnFrequencyByLevelMultiplier: 1.1
   speedByLevelMultiplier: 1.1
   minScale: 3
