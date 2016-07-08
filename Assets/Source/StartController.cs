@@ -48,7 +48,8 @@ public class StartController : MonoBehaviour
                 yield break;
             }
 
-            SceneManager.LoadScene(sceneName);
+            yield return SceneManager.LoadSceneAsync(sceneName);
+            assetBundle.Unload(false);
         }
     }
 }
