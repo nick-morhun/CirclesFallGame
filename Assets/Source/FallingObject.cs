@@ -12,7 +12,7 @@ public class FallingObject : MonoBehaviour
 
     private int score = 0;
 
-    public float Speed
+    protected float Speed
     {
         get
         {
@@ -41,35 +41,22 @@ public class FallingObject : MonoBehaviour
     /// <summary>
     /// Initializes this object.
     /// </summary>
-    public void Initialize(float scale, int levelCreated)
+    public void Initialize(DifficultyCalculator calc, float scale, int levelCreated)
     {
         if (isInitialized)
         {
             return;
         }
 
-        if (scale <= 0)
-        {
-            Debug.LogError("FallingObject.Score: scale <= 0");
-            scale = 1f;
-        }
-
         LevelCreated = levelCreated;
         gameObject.name = "Object " + objectsCreated + " Level " + levelCreated;
-        //TODO: use level in formulas
 
-        TargetConfiguration config = Configuration.Instance.Target;
-        Debug.Assert(config.MaxScale > scale);
+        speed = calc.GetSpeed(scale, levelCreated);
+        score = calc.GetScore(scale);
 
-        float sizeMultiplier = (config.MaxScale / scale);
-        speed = config.BaseSpeed * sizeMultiplier;
-        score = Mathf.RoundToInt(config.BaseScore * sizeMultiplier);
-
-        Debug.Assert(speed >= config.BaseSpeed);
-        Debug.Assert(score >= config.BaseScore);
         isInitialized = true;
         objectsCreated++;
-        //Debug.Log("FallingObject.Initialize(): speed = " + speed + " score = " + score);
+        Debug.Log("FallingObject.Initialize(): speed = " + speed + " score = " + score);
     }
 
     private void FixedUpdate()

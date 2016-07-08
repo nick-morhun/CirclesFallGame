@@ -19,7 +19,7 @@ public class Configuration : MonoBehaviour
     /// <summary>
     /// A singleton instance.
     /// </summary>
-    public static Configuration Instance { get; set; }
+    public static Configuration Instance { get; private set; }
 
 
     public string ActionAxisName { get { return actionAxisName; } }

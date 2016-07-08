@@ -96,6 +96,47 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 513589661}
   m_Script: {fileID: 11500000, guid: 1a00bfdf93df4c34ba3cd3400d1c7299, type: 3}
+--- !u!1 &369938128
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 369938130}
+  - 114: {fileID: 369938129}
+  m_Layer: 0
+  m_Name: DifficultyCalculator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &369938129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 369938128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6e553a28115f914388081c6552851ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config: {fileID: 1158163600}
+--- !u!4 &369938130
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 369938128}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 747672192}
+  m_RootOrder: 3
 --- !u!1001 &513589661
 Prefab:
   m_ObjectHideFlags: 0
@@ -375,6 +416,7 @@ Transform:
   - {fileID: 1222173869}
   - {fileID: 579506978}
   - {fileID: 841267659}
+  - {fileID: 369938130}
   m_Father: {fileID: 0}
   m_RootOrder: 2
 --- !u!1 &841267658
@@ -422,6 +464,7 @@ MonoBehaviour:
   spawningStart: {fileID: 604029922}
   spawningEnd: {fileID: 721854111}
   stopper: {fileID: 2001919279}
+  difficultyCalc: {fileID: 369938129}
 --- !u!1001 &911284234
 Prefab:
   m_ObjectHideFlags: 0
@@ -464,6 +507,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 871086a3d9e1f61449fe618ab709310d, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1158163600 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11482678, guid: 871086a3d9e1f61449fe618ab709310d,
+    type: 2}
+  m_PrefabInternal: {fileID: 911284234}
+  m_Script: {fileID: 11500000, guid: 5b7820449404fad4086abb89dc99fa50, type: 3}
 --- !u!1 &1222173867
 GameObject:
   m_ObjectHideFlags: 0

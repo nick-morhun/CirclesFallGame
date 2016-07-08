@@ -100,7 +100,7 @@ public class GameController : MonoBehaviour
             FallingObject circlePrefab = go.GetComponent<FallingObject>();
             assetBundle.Unload(false);
             circlesManager.Initialize(circlePrefab);
-            circlesManager.NextLevel(0);
+            circlesManager.NextLevel(game.Level);
         }
     }
 

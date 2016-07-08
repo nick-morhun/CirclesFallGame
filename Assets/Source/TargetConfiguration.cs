@@ -19,9 +19,11 @@ public class TargetConfiguration : MonoBehaviour
     private float baseSpeed;
 
     [SerializeField]
+    [Range(1.01f, 5f)]
     private float spawnFrequencyByLevelMultiplier;
 
     [SerializeField]
+    [Range(1.01f, 5f)]
     private float speedByLevelMultiplier;
 
     [SerializeField]

@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
 public class CirclesManager : MonoBehaviour
 {
@@ -27,6 +26,9 @@ public class CirclesManager : MonoBehaviour
 
     [SerializeField]
     private ObjectStopper stopper;
+
+    [SerializeField]
+    private DifficultyCalculator difficultyCalc;
 
     public void Initialize(FallingObject prefab)
     {
@@ -67,13 +69,19 @@ public class CirclesManager : MonoBehaviour
     {
         if (!gameLevel)
         {
-            Debug.LogError("GameController.Start(): gameLevel is null");
+            Debug.LogError("CirclesManager.Start(): gameLevel is null");
             return;
         }
 
         if (!stopper)
         {
-            Debug.LogError("GameController.Start(): stopper is null");
+            Debug.LogError("CirclesManager.Start(): stopper is null");
+            return;
+        }
+
+        if (!difficultyCalc)
+        {
+            Debug.LogError("CirclesManager.Start(): difficultyCalc is null");
             return;
         }
 
@@ -82,26 +90,30 @@ public class CirclesManager : MonoBehaviour
 
     private IEnumerator CreateObjectAtRandomTime()
     {
+        float period = difficultyCalc.GetObjectSpawningPeriod(cachedLevel);
+
         while (true)
         {
-            yield return new WaitForSeconds(1f / Configuration.Instance.Target.BaseSpawnFrequency);
+            yield return new WaitForSeconds(period);
 
             FallingObject nextCircle = pool.Get();
+            nextCircle.transform.SetParent(gameLevel);
             InitializeCircleComponents(nextCircle);
         }
     }
 
     private void InitializeCircleComponents(FallingObject fallingObject)
     {
-        var config = Configuration.Instance.Target;
-        float localScale = Random.Range(config.MinScale, config.MaxScale);
-        fallingObject.Initialize(localScale, cachedLevel);
-        var coloredCircle = fallingObject.GetComponent<RandomColoredCircle>();
-        coloredCircle.Initialize(localScale);
+        float localScale = difficultyCalc.GetRandomScale();
+
+        fallingObject.Initialize(difficultyCalc, localScale, cachedLevel);
         fallingObject.enabled = true;
 
         float spawnPointX = Random.Range(spawningStart.position.x, spawningEnd.position.x);
         fallingObject.transform.position = new Vector3(spawnPointX, spawningStart.position.y, 0f);
+
+        var coloredCircle = fallingObject.GetComponent<RandomColoredCircle>();
+        coloredCircle.Initialize(localScale);
     }
 
     private void OnObjectStopped(ObjectStoppedEventArgs args)
