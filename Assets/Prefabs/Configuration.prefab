@@ -59,9 +59,9 @@ MonoBehaviour:
   tagName: Target
   baseScore: 10
   baseSpawnFrequency: 0.5
-  baseSpeed: 0.7
-  spawnFrequencyByLevelMultiplier: 1.1
-  speedByLevelMultiplier: 1.1
+  baseSpeed: 1
+  spawnFrequencyByLevelMultiplier: 1.5
+  speedByLevelMultiplier: 1.5
   minScale: 3
   maxScale: 12
 --- !u!1001 &100100000
