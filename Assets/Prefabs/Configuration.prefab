@@ -44,7 +44,7 @@ MonoBehaviour:
   target: {fileID: 11482678}
   actionAxisName: Touch
   pointsToNextLevel: 200
-  ojectsCacheSize: 5
+  objectsPoolBufferSize: 5
 --- !u!114 &11482678
 MonoBehaviour:
   m_ObjectHideFlags: 1

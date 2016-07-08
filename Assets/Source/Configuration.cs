@@ -14,7 +14,7 @@ public class Configuration : MonoBehaviour
     private int pointsToNextLevel;
 
     [SerializeField]
-    private int ojectsCacheSize;
+    private int objectsPoolBufferSize;
 
     /// <summary>
     /// A singleton instance.
@@ -29,7 +29,7 @@ public class Configuration : MonoBehaviour
     /// <summary>
     /// A number of objects that should stay in cache.
     /// </summary>
-    public int ObjectsCacheBufferSize { get { return ojectsCacheSize; } }
+    public int ObjectsPoolBufferSize { get { return objectsPoolBufferSize; } }
 
     public TargetConfiguration Target { get { return target; } }
 

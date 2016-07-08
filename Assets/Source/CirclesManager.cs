@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class CirclesManager : MonoBehaviour
 {
-    private Pull<FallingObject> pull;
+    private Pool<FallingObject> pool;
 
     private bool isInitialized = false;
 
@@ -38,7 +38,7 @@ public class CirclesManager : MonoBehaviour
 
         this.prefab = prefab;
         this.isInitialized = true;
-        pull = new Pull<FallingObject>(this.prefab);
+        pool = new Pool<FallingObject>(this.prefab);
     }
 
     public void NextLevel(int level)
@@ -50,7 +50,7 @@ public class CirclesManager : MonoBehaviour
         }
 
         StopAllCoroutines();
-        pull.Clear();
+        pool.Clear();
         this.cachedLevel = level;
         StartCoroutine(CreateObjectAtRandomTime());
     }
@@ -86,7 +86,7 @@ public class CirclesManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1f / Configuration.Instance.Target.BaseSpawnFrequency);
 
-            FallingObject nextCircle = pull.Get();
+            FallingObject nextCircle = pool.Get();
             InitializeCircleComponents(nextCircle);
         }
     }
@@ -113,8 +113,8 @@ public class CirclesManager : MonoBehaviour
     {
         if (fallingObject.LevelCreated == cachedLevel)
         {
-            Debug.Log("An object put to pull");
-            pull.Put(fallingObject);
+            Debug.Log("An object put to Pool");
+            pool.Put(fallingObject);
         }
         else
         {
