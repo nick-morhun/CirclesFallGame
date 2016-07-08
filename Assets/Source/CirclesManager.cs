@@ -6,6 +6,8 @@ public class CirclesManager : MonoBehaviour
 {
     private Pull<FallingObject> pull;
 
+    private bool isInitialized = false;
+
     /// <summary>
     /// Derived from Game.
     /// </summary>
@@ -26,8 +28,27 @@ public class CirclesManager : MonoBehaviour
     [SerializeField]
     private ObjectStopper stopper;
 
+    public void Initialize(FallingObject prefab)
+    {
+        if (!prefab)
+        {
+            Debug.LogError("CirclesManager.Initialize(): prefab is null");
+            return;
+        }
+
+        this.prefab = prefab;
+        this.isInitialized = true;
+        pull = new Pull<FallingObject>(this.prefab);
+    }
+
     public void NextLevel(int level)
     {
+        if (!isInitialized)
+        {
+            Debug.LogError("CirclesManager.NextLevel(): isInitialized is false");
+            return;
+        }
+
         StopAllCoroutines();
         pull.Clear();
         this.cachedLevel = level;
@@ -44,12 +65,6 @@ public class CirclesManager : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-        if (!prefab)
-        {
-            Debug.LogError("CirclesManager.NextLevel(): prefab is null");
-            return;
-        }
-
         if (!gameLevel)
         {
             Debug.LogError("GameController.Start(): gameLevel is null");
@@ -62,9 +77,7 @@ public class CirclesManager : MonoBehaviour
             return;
         }
 
-        pull = new Pull<FallingObject>(prefab);
         stopper.ObjectStopped += OnObjectStopped;
-        NextLevel(0);
     }
 
     private IEnumerator CreateObjectAtRandomTime()

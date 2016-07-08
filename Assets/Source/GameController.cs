@@ -39,7 +39,7 @@ public class GameController : MonoBehaviour
         game = NewGame();
         gameGui.UpdateUI(game);
         inputManager.Touch += OnTouch;
-
+        SetupAssets();
         StartCoroutine(Clock());
     }
 
@@ -62,6 +62,45 @@ public class GameController : MonoBehaviour
             Debug.Log("An object destroyed");
             circlesManager.RecycleObject(obj);
             gameGui.UpdateUI(game);
+        }
+    }
+
+    private void SetupAssets()
+    {
+        StartCoroutine(LoadObjectPrefabFromBundle(Strings.AssetBundlesBasePath
+            + "falling_objects_bundle", "Circle"));
+    }
+
+    private IEnumerator LoadObjectPrefabFromBundle(string url, string prefabName)
+    {
+        int version = 0;
+
+        while (!Caching.ready)
+            yield return null;
+
+        using (WWW www = WWW.LoadFromCacheOrDownload(url, version))
+        {
+            yield return www;
+
+            if (!string.IsNullOrEmpty(www.error))
+            {
+                Debug.LogError(www.error);
+                yield break;
+            }
+
+            AssetBundle assetBundle = www.assetBundle;
+
+            if (!assetBundle)
+            {
+                Debug.LogError("Failed to load assetbundle: " + url);
+                yield break;
+            }
+
+            GameObject go = assetBundle.LoadAsset<GameObject>(prefabName);
+            FallingObject circlePrefab = go.GetComponent<FallingObject>();
+
+            circlesManager.Initialize(circlePrefab);
+            circlesManager.NextLevel(0);
         }
     }
 
