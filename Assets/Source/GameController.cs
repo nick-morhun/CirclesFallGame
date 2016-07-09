@@ -68,7 +68,7 @@ public class GameController : MonoBehaviour
     private void SetupAssets()
     {
         StartCoroutine(LoadObjectPrefabFromBundle(Strings.AssetBundlesBasePath
-            + "falling_objects_bundle", "Circle"));
+            + "falling_objects_bundle", Strings.ObjectPrefabName));
     }
 
     private IEnumerator LoadObjectPrefabFromBundle(string url, string prefabName)
