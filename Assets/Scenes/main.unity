@@ -96,6 +96,51 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 513589661}
   m_Script: {fileID: 11500000, guid: 1a00bfdf93df4c34ba3cd3400d1c7299, type: 3}
+--- !u!1 &178485790
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 178485791}
+  - 114: {fileID: 178485792}
+  m_Layer: 0
+  m_Name: TextureCreator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &178485791
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 178485790}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 747672192}
+  m_RootOrder: 4
+--- !u!114 &178485792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 178485790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfd2b3ab1c1ed9843804142b565efcf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TestNow: 0
+  ResultTexture: {fileID: 0}
+  color: {r: 1, g: 1, b: 1, a: 0}
+  material: {fileID: 2100000, guid: dc0f83e82760ca34780a93c61def8f1e, type: 2}
+  TextureSize: 256
 --- !u!1 &369938128
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,6 +462,7 @@ Transform:
   - {fileID: 579506978}
   - {fileID: 841267659}
   - {fileID: 369938130}
+  - {fileID: 178485791}
   m_Father: {fileID: 0}
   m_RootOrder: 2
 --- !u!1 &841267658
