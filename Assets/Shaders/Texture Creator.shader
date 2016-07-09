@@ -2,7 +2,7 @@ Shader "Custom/Texture Creator"
 {
     Properties
     {
-        _Color ("Main Color", Color) = (1,1,1,0.5)
+        _Color ("Main Color", Color) = (1,1,1,1)
         _MainTex ("Texture", 2D) = "white" { }
     }
     SubShader
@@ -40,6 +40,10 @@ Shader "Custom/Texture Creator"
                 return o;
             }
 
+			static const fixed3 WHITE_COLOR3 = fixed3(1,1,1);
+			static const fixed4 BLACK_COLOR = fixed4(0,0,0,1);
+			static const fixed4 BLACK_COLOR_TR = fixed4(0,0,0,0);
+
             fixed4 frag(fragmentIn i) : SV_Target
             {
 			    // i.texcoord = [0;1]
@@ -47,20 +51,23 @@ Shader "Custom/Texture Creator"
 				float cy = i.texcoord.y - 0.5;
 				float cr = cx * cx + cy * cy;
 
-				if (cr > 0.25f)
-				    return fixed4(0,0,0,0);
+				if (cr > 0.25)
+				    return BLACK_COLOR_TR;
 
-				if (cr > 0.23f)
-				    return fixed4(0,0,0,1);
-
-				if (cr < 0.02f)
-				    return fixed4(.9,.9,.9,.1);
-
-				// result in [0;1]
-				cr = 1 - 4 * cr;
+				if (cr > 0.23)
+				    return BLACK_COLOR;
 
 				fixed4 c;
-				c.rgb = _Color.rgb * cr;
+				
+				if (cr < 0.02)
+				    c.a = 0.8;
+				else
+					c.a = 1;
+
+				// gets [1;0] from [0;0.25] radial distance
+				cr = 1 - 4 * cr;
+				c.rgb = _Color.rgb * cr + (WHITE_COLOR3 - _Color.rgb)* (1 - cr);
+				
                 return c;
             }
             
