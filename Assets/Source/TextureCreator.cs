@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TextureCreator : MonoBehaviour
 {
-    private RenderTexture renderTexture;
+    private Dictionary<int, RenderTexture> RTcache = new Dictionary<int, RenderTexture>();
 
 #if UNITY_EDITOR
     [SerializeField]
@@ -20,11 +21,6 @@ public class TextureCreator : MonoBehaviour
 
     public Texture2D Generate()
     {
-        if (renderTexture == null)
-        {
-            renderTexture = new RenderTexture(TextureSize, TextureSize, 0);
-        }
-
         ResultTexture = ProcessTexture();
         return ResultTexture;
     }
@@ -49,6 +45,8 @@ public class TextureCreator : MonoBehaviour
         mat.color = color;
         mat.mainTexture = texture2D;
 
+        RenderTexture renderTexture = GetRenderTexture(TextureSize);
+
         // Apply shader
         Graphics.Blit(mat.mainTexture, renderTexture, mat);
 
@@ -56,5 +54,18 @@ public class TextureCreator : MonoBehaviour
         texture2D.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0, false);
         texture2D.Apply();
         return texture2D;
+    }
+
+    private RenderTexture GetRenderTexture(int size)
+    {
+        RenderTexture renderTexture;
+        if (RTcache.TryGetValue(size, out renderTexture))
+        {
+            return renderTexture;
+        }
+
+        renderTexture = new RenderTexture(size, size, 0);
+        RTcache.Add(size, renderTexture);
+        return renderTexture;
     }
 }

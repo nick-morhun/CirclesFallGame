@@ -16,5 +16,5 @@ public static class Strings
         }
     }
 
-    public static readonly string ObjectPrefabName = "Circle";
+    public static readonly string ObjectPrefabName = "TexturedCircle";
 }

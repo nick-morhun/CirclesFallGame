@@ -30,6 +30,9 @@ public class CirclesManager : MonoBehaviour
     [SerializeField]
     private DifficultyCalculator difficultyCalc;
 
+    [SerializeField]
+    private TextureCreator textureCreator;
+
     public void Initialize(FallingObject prefab)
     {
         if (!prefab)
@@ -85,6 +88,12 @@ public class CirclesManager : MonoBehaviour
             return;
         }
 
+        if (!textureCreator)
+        {
+            Debug.LogError("CirclesManager.Start(): textureCreator is null");
+            return;
+        }
+
         stopper.ObjectStopped += OnObjectStopped;
     }
 
@@ -113,7 +122,7 @@ public class CirclesManager : MonoBehaviour
         fallingObject.transform.position = new Vector3(spawnPointX, spawningStart.position.y, 0f);
 
         var coloredCircle = fallingObject.GetComponent<RandomColoredCircle>();
-        coloredCircle.Initialize(localScale);
+        coloredCircle.Initialize(localScale, textureCreator);
     }
 
     private void OnObjectStopped(ObjectStoppedEventArgs args)

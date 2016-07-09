@@ -505,12 +505,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4402815f2c23eb4f95909a362ad632b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 11474910, guid: 55fc941c7b6d8904c8520b054467df1d, type: 2}
+  prefab: {fileID: 0}
   gameLevel: {fileID: 1744279129}
   spawningStart: {fileID: 604029922}
   spawningEnd: {fileID: 721854111}
   stopper: {fileID: 2001919279}
   difficultyCalc: {fileID: 369938129}
+  textureCreator: {fileID: 178485792}
 --- !u!1001 &911284234
 Prefab:
   m_ObjectHideFlags: 0
