@@ -118,4 +118,9 @@ public class GameController : MonoBehaviour
     {
         return new Game();
     }
+
+    private void OnDestroy()
+    {
+        Caching.CleanCache();
+    }
 }
