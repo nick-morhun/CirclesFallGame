@@ -121,6 +121,6 @@ public class GameController : MonoBehaviour
 
     private void OnDestroy()
     {
-        Caching.CleanCache();
+        Caching.ClearCache();
     }
 }
