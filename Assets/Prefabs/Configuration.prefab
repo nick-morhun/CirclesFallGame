@@ -5,11 +5,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 441976}
-  - 114: {fileID: 11448748}
-  - 114: {fileID: 11482678}
+  - component: {fileID: 441976}
+  - component: {fileID: 11448748}
+  - component: {fileID: 11482678}
   m_Layer: 0
   m_Name: Configuration
   m_TagString: Untagged
@@ -26,10 +26,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &11448748
 MonoBehaviour:
   m_ObjectHideFlags: 1
